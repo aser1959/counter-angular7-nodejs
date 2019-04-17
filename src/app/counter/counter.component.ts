@@ -51,28 +51,29 @@ export class CounterComponent implements OnInit {
             );
     }
 
-    chengeCounter( incrementDecrement: string ): void {
+    chengeCounter( incrementDecrement: string ): any {
         return this.counterService.setChengeCounter( incrementDecrement )
-        .subscribe(
-            response => {
-                if ( incrementDecrement === 'increment' ) {
-                    this.confirmCounter = response.counter;
-                }
-            },
-            error => this.errorProcessing( error.value.message, error.value.status )
-        );
+            .then(
+                response => {
+                    if ( incrementDecrement === 'increment' ) {
+                        this.confirmCounter = response.counter;
+                        return true;
+                    }
+                },
+                error =>
+                    this.errorProcessing( error.value.message, error.value.status )
+                );
     }
 
     private errorProcessing( message: string, status: number , onInit: boolean = false ): void {
         if (!onInit) {
             this.errorMessage = message;
-            this.counterModal.hide();
             this.errorModal.show();
         } else {
             this.errorMessageOnInit = message;
         }
         setTimeout( () => {
-            if (!onInit) {
+            if ( !onInit ) {
                 this.errorModal.hide();
             }
             this.errorMessage = '';
@@ -87,9 +88,11 @@ export class CounterComponent implements OnInit {
         this.counterModal.hide();
     }
 
-    private counterModalShow(): void {
-        this.chengeCounter('increment');
-        this.counterModal.show();
+    async counterModalShow() {
+        const result = await this.chengeCounter('increment');
+        if ( result ) {
+            this.counterModal.show();
+        }
     }
 
     okCounter(): void {

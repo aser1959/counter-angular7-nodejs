@@ -21,17 +21,18 @@ export class CounterService {
     getCounterBegin(): Observable<CounterInterface> | any {
         return this.http.get( `${this.globalService.apiHost}/begin` )
                 .pipe(
-                    (response) =>  response,
-                    catchError(	(error: any) => of( this.globalService.handleError(error) )
+                    response =>  response,
+                    catchError(	(error: any ) => of( this.globalService.handleError( error ) )
                 ));
     }
 
-    setChengeCounter(incrementDecrement): Observable<CounterInterface> | any {
+    setChengeCounter(incrementDecrement): Promise<CounterInterface> | any {
         return this.http.put(`${this.globalService.apiHost}/${incrementDecrement}`, {} )
-                .pipe(
-                    (response: any) => response,
-                    catchError(	( error: ErrorInterface ) =>
-                        throwError( this.globalService.handleError(error) )
-                ));
+            .toPromise()
+            .then(
+                (response: CounterInterface) => response,
+                ( error: ErrorInterface ) =>
+                    throwError( this.globalService.handleError( error ) ).toPromise()
+            );
     }
 }
