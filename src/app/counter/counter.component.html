@@ -1,0 +1,57 @@
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div *ngIf = errorMessageOnInit class="col-md-12 col-lg-10 counter-container-error">
+            <h1 class="error-oninit text-center">{{errorMessageOnInit}}</h1>
+        </div>
+        <div *ngIf = !errorMessageOnInit class="col-12 col-md-10 col-lg-6 counter-container">
+		    <div class="row d-flex align-items-center">
+                <div class="col-12 col-md-6 counter-main">{{counterName}} : {{counter}} </div>  
+                <div class="col-12 col-md-6">
+                    <button type="button" class="btn btn-success btn-block btn-lg" aria-label="Increment" (click)="counterModalShow()"><i class="fa fa-plus"></i> ​Increment</button>
+                </div>
+            </div>  
+        </div>
+    </div>  
+</div> 
+
+<div id="counterConfirm" class="counter-modal modal fade" bsModal #counterModal="bs-modal" role="dialog"aria-hidden="true" [config]="{backdrop: 'static',keyboard:'true'}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="container">
+                <h1>Подтвердите действие</h1>
+                <div class="modal-body">
+                    <p></p>
+		            <div class="counter-modal">Текущий счетчик : {{counter}}</div>
+		            <div class="counter-modal">Следующий счет : {{confirmCounter}}</div>  
+                    <div class="text-center">
+                        <p></p>
+                        <p>Если Вы согласны перейти на <b>{{confirmCounter}}</b> нажмите <b>«Confirm»</b>.</p>
+                        <p>Если Вы не согласны нажмите <b>«Cancel»</b>.</p>
+                    </div>
+                </div>    
+                <div class="row d-flex justify-content-between counter-сonfirm-footer">
+                    <div class="col-6 col-md-4 text-left">
+                        <button class="btn btn-success btn-block-small" type="button" (click)="okCounter()">
+                        <i class="fa fa-plus"></i> Confirm </button>                        
+                    </div>
+                    <div class="col-6 col-md-4 text-right">
+                        <button class="btn btn-warning btn-block-small" type="button" (click)="noCounter()">
+                        <i class="fa fa-times"></i> Cancel</button>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div id="counterError" class="counter-modal modal fade" bsModal #errorModal="bs-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered error-answer">
+        <div class="modal-content">
+            <div class="container">
+                <div class="modal-body text-center">
+                    <h2>{{errorMessage}} </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                                                                                           

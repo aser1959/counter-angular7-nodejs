@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" id="mainNav">
+    <div class="container container-nav">
+        <span class="navbar-brand">Очень Нужный Счетчик</span>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul id="ulNav" class="navbar-nav text-uppercase ml-auto" data-toggle="collapse">
+                <li *ngIf = counterPage class="nav-item">
+                    <a class="nav-link nav-link-logout"  (click)="logoutUser()">logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="main">
+    <router-outlet></router-outlet>
+</main>
+<footer id="footerMain"class="footer">
+    <div class="row justify-content-between">
+        <div class="col-12 col-md-6 text-center">
+            <span class="copyright">Copyright &copy;<span class="site-name"> Изготоаление Счетчиков </span> 2019 г.</span>
+        </div>
+        <div class="col-12 col-md-6 text-crnter">
+            <span class="copyright">Email:aser1959g@gmail.com</span>
+        </div>
+    </div>
+</footer>
+  

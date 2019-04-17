@@ -1,0 +1,8 @@
+/dist
+/tmp
+/node_modules
+/server/node_modules
+npm-debug.log
+testem.log
+.DS_Store
+Thumbs.db
