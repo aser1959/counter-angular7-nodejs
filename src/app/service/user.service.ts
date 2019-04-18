@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, finalize } from 'rxjs/operators';
 import { Observable, throwError , of } from 'rxjs';
 
 import { GlobalService } from './global.service';
@@ -40,14 +40,14 @@ export class UserService {
     logout(): Observable<any> {
         return this.http.post(`${this.globalService.apiHost}/logout`, {})
             .pipe(
-                map(( esponse: any ) => {
+                response => response,
+                catchError(	error => throwError(this.globalService.handleError(error))),
+                finalize( () => {
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('access_user');
                     this.loggedIn = false;
-                }),
-                catchError(	error =>
-                    throwError(this.globalService.handleError(error))
-                )
+
+                })
             );
     }
 

@@ -18,7 +18,7 @@
 <footer id="footerMain"class="footer">
     <div class="row justify-content-between">
         <div class="col-12 col-md-6 text-center">
-            <span class="copyright">Copyright &copy;<span class="site-name"> Изготоаление Счетчиков </span> 2019 г.</span>
+            <span class="copyright">Copyright &copy;<span class="site-name"> Изготовление Счетчиков </span> 2019 г.</span>
         </div>
         <div class="col-12 col-md-6 text-crnter">
             <span class="copyright">Email:aser1959g@gmail.com</span>
@@ -26,3 +26,14 @@
     </div>
 </footer>
   
+<div id="counterError" class="counter-modal modal fade" bsModal #errorModal="bs-modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered error-answer">
+        <div class="modal-content">
+            <div class="container">
+                <div class="modal-body text-center">
+                    <h2>{{errorMessage}} </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>              

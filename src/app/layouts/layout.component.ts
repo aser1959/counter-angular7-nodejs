@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 
 import { UserService } from '../service/user.service';
@@ -13,9 +14,12 @@ import { CounterService, CounterInterface } from '../service/counter.service';
 
 export class LayoutComponent implements OnInit, OnDestroy {
 
+    @ViewChild('errorModal') public errorModal:	ModalDirective;
+
     private subscriptionActivatedRoute$: Subscription;
 
     counterPage = false;
+    errorMessage = '';
 
     constructor( private router: Router,
                  private activatedRoute: ActivatedRoute,
@@ -34,8 +38,18 @@ export class LayoutComponent implements OnInit, OnDestroy {
     logoutUser(): void {
         this.userService.logout()
             .subscribe(
-                response => this.router.navigate(['/login']),
-                error => this.router.navigate(['/login'])
+                response => this.router.navigate( ['/login'] ),
+                error => {
+                    this.errorMessage = `Не получилось разлогиниться на сервере!
+                                         Для обнуления счетчика,
+                                         повторите LOGOUT после авторизации!`;
+                    this.errorModal.show();
+                    setTimeout( () => {
+                        this.errorModal.hide();
+                        this.errorMessage = '';
+                        this.router.navigate( ['/login'] );
+                    }, 10000 );
+                }
             );
     }
 
