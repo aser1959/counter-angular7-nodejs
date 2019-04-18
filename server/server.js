@@ -90,7 +90,7 @@ router.put('/decrement', (req, res) => {
 router.post('/logout', (req, res) => {
     if ( verifyToken(req.headers.access_token, req.body.access_user, res)) {
         const counter = setNewCounter();
-        res.status(200).send('OK');
+        res.status(200).send(counter);
     }    
 });
 
